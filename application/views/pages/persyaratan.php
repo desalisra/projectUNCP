@@ -33,7 +33,8 @@
                     <tr>
                       <th width="5%" class="text-center">No</th>
                       <th width="85%" class="text-center">Persyaratan</th>
-                      <th width="10%" class="text-center" colspan="2">Aksi</i></th>
+                      <th width="5%" class="text-center">Edit</i></th>
+                      <th width="5%" class="text-center">Delete</i></th>
                     </tr>
                   </thead>
                   <tbody>

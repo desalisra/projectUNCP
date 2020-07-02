@@ -31,7 +31,7 @@ class Auth extends CI_Controller
     $this->form_validation->set_rules('username', 'username', 'required|trim', [
       'required' => 'Email Wajib Di isi'
     ]);
-    $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]', [
+    $this->form_validation->set_rules('password', 'oassword', 'required|trim|min_length[4]', [
       'required' => 'Password Wajib Di isi',
       'min_length' => 'Password Min 4 karakter'
     ]);

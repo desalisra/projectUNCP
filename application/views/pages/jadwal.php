@@ -50,7 +50,7 @@
                       <th class="text-center">Program Studi</th>
                       <th class="text-center">Instansi</th>
                       <th class="text-center">Status</th>
-                      <th width="5%" class="text-center">Aksi</i></th>
+                      <th width="5%" class="text-center">Jadwalkan</i></th>
                     </tr>
                   </thead>
                   <tbody>

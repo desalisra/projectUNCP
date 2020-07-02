@@ -46,7 +46,7 @@ class Home_model extends CI_Model
 
   public function addLokasi($id_lokasi = null, $prodi, $instansi)
   {
-    if ($id_lokasi == "") {
+    if (is_null($id_lokasi)) {
       $this->db->query("INSERT INTO tb_lokasi (prodi_lokasi,instansi_lokasi) VALUES ('$prodi','$instansi') ");
     } else {
       $this->db->query("UPDATE tb_lokasi SET prodi_lokasi = '$prodi', instansi_lokasi = '$instansi' WHERE id_lokasi = '$id_lokasi' ");

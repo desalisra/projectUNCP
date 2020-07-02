@@ -49,7 +49,8 @@
                       <th width="5%" class="text-center">No</th>
                       <th width="40%" class="text-center">Program Studi</th>
                       <th width="45%" class="text-center">Instansi</th>
-                      <th width="10%" class="text-center" colspan="2">Aksi</i></th>
+                      <th width="5%" class="text-center">Edit</i></th>
+                      <th width="5%" class="text-center">Delete</i></th>
                     </tr>
                   </thead>
                   <tbody>

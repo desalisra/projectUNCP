@@ -6,9 +6,16 @@ class Lokasi extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    isLogin($this->session->userdata('user_id'));
+    $this->isLogin($this->session->userdata('user_id'));
     $this->load->library('form_validation');
     $this->load->model('lokasi_model');
+  }
+
+  function isLogin($user_id)
+  {
+    if ($user_id == "") {
+      redirect('auth');
+    }
   }
 
 

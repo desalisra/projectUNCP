@@ -6,9 +6,16 @@ class Pendaftaran extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    isLogin($this->session->userdata('user_id'));
+    $this->isLogin($this->session->userdata('user_id'));
     $this->load->library('form_validation');
     $this->load->model('pendaftaran_model');
+  }
+
+  function isLogin($user_id)
+  {
+    if ($user_id == "") {
+      redirect('auth');
+    }
   }
 
   public function index()
@@ -98,6 +105,24 @@ class Pendaftaran extends CI_Controller
 
     $id = $this->input->post('id_pendaftar');
 
+    $data = [
+      "nim_pendaftar" => $this->input->post('nim'),
+      "nama_pendaftar" => $this->input->post('nama'),
+      "tempat_lahir_pendaftar" => $this->input->post('tempat-lahir'),
+      "tanggal_lahir_pendaftar" => $this->input->post('tanggal-lahir'),
+      "jk_pendaftar" => $this->input->post('kelamin'),
+      "agama_pendaftar" => $this->input->post('agama'),
+      "telepon_pendaftar" => $this->input->post('telepon'),
+      "alamat_pendaftar" => $this->input->post('alamat'),
+      "nama_wali_pendaftar" => $this->input->post('nama-wali'),
+      "alamat_wali_pendaftar" => $this->input->post('alamat-wali'),
+      "telepon_wali_pendaftar" => $this->input->post('telepon-wali'),
+      "pendidikan_wali_pendaftar" => $this->input->post('pendidikan-wali'),
+      "pekerjaan_wali_pendaftar" => $this->input->post('pekerjaan-wali'),
+      "prodi_pendaftar" => $this->input->post('prodi'),
+      "instansi_pendaftar" => $this->input->post('instansi')
+    ];
+
     // Update Tidak perlu upload gambar
     if ($id === "") {
       // Validasi Upload Gambar
@@ -106,6 +131,7 @@ class Pendaftaran extends CI_Controller
       } else {
         $config['upload_path'] = './assets/bukti_pembayaran';
         $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['file_name'] = 'bukt-lunas-' . $data["nim_pendaftar"];
         $config['max_size']  = '2048';
         $config['remove_space'] = TRUE;
 
@@ -125,24 +151,6 @@ class Pendaftaran extends CI_Controller
       }
     }
 
-    $data = [
-      "nim_pendaftar" => $this->input->post('nim'),
-      "nama_pendaftar" => $this->input->post('nama'),
-      "tempat_lahir_pendaftar" => $this->input->post('tempat-lahir'),
-      "tanggal_lahir_pendaftar" => $this->input->post('tanggal-lahir'),
-      "jk_pendaftar" => $this->input->post('kelamin'),
-      "agama_pendaftar" => $this->input->post('agama'),
-      "telepon_pendaftar" => $this->input->post('telepon'),
-      "alamat_pendaftar" => $this->input->post('alamat'),
-      "nama_wali_pendaftar" => $this->input->post('nama-wali'),
-      "alamat_wali_pendaftar" => $this->input->post('alamat-wali'),
-      "telepon_wali_pendaftar" => $this->input->post('telepon-wali'),
-      "pendidikan_wali_pendaftar" => $this->input->post('pendidikan-wali'),
-      "pekerjaan_wali_pendaftar" => $this->input->post('pekerjaan-wali'),
-      "prodi_pendaftar" => $this->input->post('prodi'),
-      "instansi_pendaftar" => $this->input->post('instansi')
-    ];
-
     if ($id === "") {
       $data["bukti_lunas_pendaftar"] = $this->upload->data('file_name');
     }
@@ -150,6 +158,8 @@ class Pendaftaran extends CI_Controller
     $data["status_pendaftar"] = "0";
     $data["user_pendaftar"] = $this->input->post('user_pendaftar');
     $data["tanggal_daftar_pendaftar"] = date("Y-m-d");
+
+
 
     // Insert or Update Database
     $this->pendaftaran_model->daftar($data, $id);

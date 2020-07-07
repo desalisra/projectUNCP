@@ -4,6 +4,7 @@
     <div id="content">
       <?php $this->load->view('layout/navbar'); ?>
       <div class="container-fluid">
+        <?= $this->session->flashdata('message'); ?>
         <?php if ($this->session->userdata("user_level") == "User") : ?>
           <div class="card shadow ">
             <div class="card-header py-3">
@@ -66,7 +67,7 @@
                           </a>
                         </td>
                         <td>
-                          <a href="<?= base_url("home/deleteLokasi/") . $row["id_lokasi"]  ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
+                          <a href="<?= base_url("lokasi/deleteLokasi/") . $row["id_lokasi"]  ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                           </a>
                         </td>
@@ -81,7 +82,7 @@
           <div class="modal fade" id="lokasiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <form action="<?= base_url("home/addLokasi") ?>" method="post">
+                <form action="<?= base_url("lokasi/addLokasi") ?>" method="post">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Lokasi</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -129,7 +130,7 @@
 
 <script>
   function ubahData(id) {
-    $.getJSON('<?php echo base_url("home/editLokasi/"); ?>' + id, function(data) {
+    $.getJSON('<?php echo base_url("lokasi/editLokasi/"); ?>' + id, function(data) {
       data = data.dataLokasi;
       $.each(data, function(i, data) {
         $("#id_lokasi").val(data.id_lokasi);

@@ -23,6 +23,7 @@
                     <th class="text-center">Status</th>
                     <th width="3%" class="text-center">Edit</th>
                     <th width="3%" class="text-center">Delete</th>
+                    <th width="3%" class="text-center">Print</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -37,13 +38,18 @@
                       <td><?= $row["instansi_lokasi"] ?></td>
                       <td><?= ($row["status_pendaftar"] > 0) ? "Terjadwal" : "Menunggu Jadwal" ?></td>
                       <td class="text-center">
-                        <a href="<?= base_url("home/editPendaftar/") . $row['id_pendaftaran'] ?>" class="text-success">
+                        <a href="<?= base_url("pendaftaran/editPendaftar/") . $row['id_pendaftaran'] ?>" class="text-success">
                           <i class="fas fa-pen" aria-hidden="true"></i>
                         </a>
                       </td>
                       <td class="text-center">
-                        <a href="<?= base_url("home/deletePendaftar/") . $row['id_pendaftaran'] ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
+                        <a href="<?= base_url("pendaftaran/deletePendaftar/") . $row['id_pendaftaran'] ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
                           <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                      <td class="text-center">
+                        <a href="<?= base_url('jadwal/exportPDF/') . $row["id_pendaftaran"] ?>" target="_blank" class="text-primary">
+                          <i class="fas fa-print" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>

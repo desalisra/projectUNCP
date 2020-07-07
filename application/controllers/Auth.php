@@ -29,7 +29,7 @@ class Auth extends CI_Controller
   public function login()
   {
     $this->form_validation->set_rules('username', 'username', 'required|trim', [
-      'required' => 'Email Wajib Di isi'
+      'required' => 'Username Wajib Di isi'
     ]);
     $this->form_validation->set_rules('password', 'oassword', 'required|trim|min_length[4]', [
       'required' => 'Password Wajib Di isi',

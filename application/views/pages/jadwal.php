@@ -4,6 +4,7 @@
     <div id="content">
       <?php $this->load->view('layout/navbar'); ?>
       <div class="container-fluid">
+        <?= $this->session->flashdata('message'); ?>
         <?php if ($this->session->userdata("user_level") == "User") : ?>
           <div class="card shadow ">
             <div class="card-header py-3">
@@ -12,20 +13,26 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Waktu</th>
+                      <th width="5%" class="text-center" scope="col">No</th>
+                      <th width="25%" scope="col">Nama Mahasiswa</th>
                       <th scope="col">Instansi</th>
-                      <th scope="col">Nama Pembimbing</th>
+                      <th scope="col">Waktu</th>
+                      <th width="25%" scope="col">Nama Pembimbing</th>
+                      <th width="5%" class="text-center" scope="col">Print</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $no = 1; ?>
                     <?php foreach ($dataJadwal as $row) : ?>
                       <tr>
-                        <th scope="row"><?= $no++ ?></th>
-                        <td><?= $row["tanggal_jadwal"] ?></td>
+                        <th class="text-center" scope="row"><?= $no++ ?></th>
+                        <td><?= $row["nama_pendaftar"] ?></td>
                         <td><?= $row["instansi_lokasi"] ?></td>
-                        <td><?= $row["pembimbing_jadwal"] ?></td>
+                        <td><?= (is_null($row["tanggal_jadwal"])) ? "Menunggu jadwal dari TU" : $row["tanggal_jadwal"] ?></td>
+                        <td><?= (is_null($row["pembimbing_jadwal"])) ? "Menunggu jadwal dari TU" : $row["pembimbing_jadwal"] ?></td>
+                        <td class="text-center">
+                          <a href="<?= base_url('jadwal/exportPDF/') . $row["id_pendaftaran"] ?>" target="_balnk"><i class="fas fa-print"></i></a>
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -80,7 +87,7 @@
           <div class="modal fade" id="lokasiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <form action="<?= base_url("home/addJadwal") ?>" method="post">
+                <form action="<?= base_url("jadwal/addJadwal") ?>" method="post">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Jadwal</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -133,8 +140,9 @@
 
 <script>
   function ubahData(id) {
-    $.getJSON('<?php echo base_url("home/editJadwal/"); ?>' + id, function(data) {
+    $.getJSON('<?php echo base_url("jadwal/editJadwal/"); ?>' + id, function(data) {
       data = data.dataPendaftar;
+
       $.each(data, function(i, data) {
         $("#id_pendaftar").val(data.id_pendaftaran);
         $("#nim").val(data.nim_pendaftar);

@@ -24,7 +24,7 @@
                   </div>
                   <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control form-control-user <?= (strlen(form_error('username')) > 0) ? "is-invalid" : "" ?>" id="password" name="password">
+                    <input type="password" class="form-control form-control-user <?= (strlen(form_error('password')) > 0) ? "is-invalid" : "" ?>" id="password" name="password">
                     <div class="invalid-feedback">
                       <?= form_error('password', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>

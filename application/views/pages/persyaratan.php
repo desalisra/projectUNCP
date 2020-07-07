@@ -4,7 +4,7 @@
     <div id="content">
       <?php $this->load->view('layout/navbar'); ?>
       <div class="container-fluid">
-
+        <?= $this->session->flashdata('message'); ?>
         <?php if ($this->session->userdata("user_level") == "User") : ?>
           <div class="card shadow ">
             <div class="card-header py-3">
@@ -49,7 +49,7 @@
                           </a>
                         </td>
                         <td>
-                          <a href="<?= base_url("home/deletePersyaratan/") . $row["id_persyaratan"]  ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
+                          <a href="<?= base_url("persyaratan/deletePersyaratan/") . $row["id_persyaratan"]  ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                           </a>
                         </td>
@@ -64,7 +64,7 @@
           <div class="modal fade" id="syaratModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <form action="<?= base_url("home/addPersyaratan") ?>" method="post">
+                <form action="<?= base_url("persyaratan/addPersyaratan") ?>" method="post">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Persyaratan</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -109,7 +109,7 @@
 
 <script>
   function ubahData(id) {
-    $.getJSON('<?php echo base_url("home/editPersyaratan/"); ?>' + id, function(data) {
+    $.getJSON('<?php echo base_url("persyaratan/editPersyaratan/"); ?>' + id, function(data) {
       data = data.dataPersyaratan;
       $.each(data, function(i, data) {
         $("#id_persyaratan").val(data.id_persyaratan);

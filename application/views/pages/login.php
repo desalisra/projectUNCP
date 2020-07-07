@@ -10,6 +10,9 @@
             </div>
             <div class="col-lg-6">
               <div class="p-5">
+                <div class="d-block d-lg-none mb-4">
+                  <img style="display: block; margin: auto; width:50%;" src="<?= base_url('assets/img/pp.png') ?>">
+                </div>
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Selamat Datang !</h1>
                 </div>

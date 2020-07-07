@@ -38,13 +38,14 @@ class Admin_model extends CI_Model
     } else {
       // Update data
       $sql = "UPDATE tb_user SET ";
-      $sql = $sql . "nama_user = '" . $data["nama"] . "', ";
-      $sql = $sql . "email_user = '" . $data["username"] . "', ";
+      $sql = $sql . "nama_user = '" . $data["nama"] . "',";
+      $sql = $sql . "email_user = '" . $data["username"] . "',";
       if ($data["password1"] != "") {
-        $sql = $sql . "nama_user = '" . $data["password1"] . "',";
+        $sql = $sql . "pass_user = '" . $data["password1"] . "',";
       }
-      $sql = substr($sql, 0, strlen($sql) - 2);
-      $sql = $sql . "WHERE id_user = '" . $data["id_user"] . "'";
+
+      $sql = substr($sql, 0, strlen($sql) - 1);
+      $sql = $sql . " WHERE id_user = '" . $data["id_user"] . "'";
     }
 
     $this->db->query($sql);

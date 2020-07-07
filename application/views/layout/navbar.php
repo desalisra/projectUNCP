@@ -13,7 +13,7 @@
 
       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
         <?php if ($this->session->userdata("user_level") == "Admin") : ?>
-          <a class="dropdown-item" href="<?= base_url('auth/logout') ?>" data-toggle="modal" data-target="#logoutModal">
+          <a class="dropdown-item" href="<?= base_url('admin') ?>">
             <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
             Management Admin
           </a>

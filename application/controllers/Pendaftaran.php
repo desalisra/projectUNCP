@@ -40,7 +40,7 @@ class Pendaftaran extends CI_Controller
     $data["dataPendaftar"] = $this->pendaftaran_model->getPendaftar();
 
     $this->load->view('layout/header');
-    $this->load->view('pages/mPendaftaran', $data);
+    $this->load->view('pages/mpendaftaran', $data);
     $this->load->view('layout/footer');
   }
 

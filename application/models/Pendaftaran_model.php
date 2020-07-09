@@ -9,6 +9,13 @@ class Pendaftaran_model extends CI_Model
   }
 
   // Pendaftaran
+  public function getProdi()
+  {
+    $query = $this->db->query("SELECT DISTINCT prodi_lokasi FROM tb_lokasi");
+    return $query->result_array();
+  }
+
+  // Pendaftaran
   public function getInstansi()
   {
     $query = $this->db->query("SELECT id_lokasi,instansi_lokasi FROM tb_lokasi");

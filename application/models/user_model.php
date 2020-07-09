@@ -32,7 +32,7 @@ class User_model extends CI_Model
       $sql = "INSERT INTO tb_user (nama_user,email_user,pass_user,level_user) VALUES (";
       $sql = $sql . "'" . $data["nama"] . "',";
       $sql = $sql . "'" . $data["username"] . "',";
-      $sql = $sql . "'" . md5($data["password1"]) . "',";
+      $sql = $sql . "'" . $data["password1"] . "',";
       $sql = $sql . "'User'";
       $sql = $sql . ")";
     } else {
@@ -41,7 +41,7 @@ class User_model extends CI_Model
       $sql = $sql . "nama_user = '" . $data["nama"] . "',";
       $sql = $sql . "email_user = '" . $data["username"] . "',";
       if ($data["password1"] != "") {
-        $sql = $sql . "pass_user = '" . md5($data["password1"]) . "',";
+        $sql = $sql . "pass_user = '" . $data["password1"] . "',";
       }
       $sql = substr($sql, 0, strlen($sql) - 1);
       $sql = $sql . " WHERE id_user = '" . $data["id_user"] . "'";

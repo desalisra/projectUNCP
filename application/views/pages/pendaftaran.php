@@ -127,10 +127,9 @@
                 <label for="prodi">Program Studi</label>
                 <select class="form-control <?= (strlen(form_error('prodi')) > 0) ? "is-invalid" : "" ?>" id="prodi" name="prodi" value="<?= set_value("prodi") ?>">
                   <option value="">Pilih Program Studi</option>
-                  <option value="matematika">Matematika</option>
-                  <option value="fisika">Fisika</option>
-                  <option value="kimia">Kimia</option>
-                  <option value="biologi">Biologi</option>
+                  <?php foreach ($dataProdi as $row) : ?>
+                    <option value="<?= $row["prodi_lokasi"] ?>"><?= $row["prodi_lokasi"] ?></option>
+                  <?php endforeach ?>
                 </select>
                 <div class="invalid-feedback">
                   <?= form_error('prodi', '<small class="text-danger pl-2">', '</small>') ?>
@@ -154,7 +153,7 @@
                 <label for="bukti-pembayaran">Upload Bukti Pembayaran</label>
                 <input type="file" class="d-block" id="bukti-pembayaran" name="bukti-pembayaran">
               </div>
-              <input type="text" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $dataUser ?>">
+              <input type="hidden" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $dataUser ?>">
               <button type="submit" class="btn btn-primary">Daftar</button>
             </form>
           </div>

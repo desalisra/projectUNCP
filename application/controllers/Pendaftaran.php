@@ -27,6 +27,7 @@ class Pendaftaran extends CI_Controller
     }
 
     $data["dataUser"] = $id_pendaftar;
+    $data["dataProdi"] = $this->pendaftaran_model->getProdi();
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
 
     $this->load->view('layout/header');
@@ -37,6 +38,7 @@ class Pendaftaran extends CI_Controller
   public function manajemen()
   {
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+    $data["dataProdi"] = $this->pendaftaran_model->getProdi();
     $data["dataPendaftar"] = $this->pendaftaran_model->getPendaftar();
 
     $this->load->view('layout/header');
@@ -68,6 +70,7 @@ class Pendaftaran extends CI_Controller
     if ($this->form_validation->run() == false) {
       $data["dataUser"] = $this->input->post('user_pendaftar');
       $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+      $data["dataProdi"] = $this->pendaftaran_model->getProdi();
       $this->load->view('layout/header');
       $this->load->view('pages/pendaftaran', $data);
       $this->load->view('layout/footer');
@@ -104,6 +107,7 @@ class Pendaftaran extends CI_Controller
 
       $data["dataUser"] = $this->input->post('user_pendaftar');
       $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+      $data["dataProdi"] = $this->pendaftaran_model->getProdi();
       $this->load->view('layout/header');
       $this->load->view('pages/pendaftaran', $data);
       $this->load->view('layout/footer');
@@ -157,6 +161,7 @@ class Pendaftaran extends CI_Controller
       );
       $data["dataUser"] = $this->input->post('user_pendaftar');
       $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+      $data["dataProdi"] = $this->pendaftaran_model->getProdi();
       $this->load->view('layout/header');
       $this->load->view('pages/pendaftaran', $data);
       $this->load->view('layout/footer');
@@ -167,7 +172,24 @@ class Pendaftaran extends CI_Controller
     if ($id === "") {
       // Validasi Upload Gambar
       $bukti = $_FILES['bukti-pembayaran']['name'];
+
       if ($bukti == '') {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Pendaftaran Gagal,</strong> Silahkan upload bukti pembayaran.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>'
+        );
+        $data["dataUser"] = $this->input->post('user_pendaftar');
+        $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+        $data["dataProdi"] = $this->pendaftaran_model->getProdi();
+        $this->load->view('layout/header');
+        $this->load->view('pages/pendaftaran', $data);
+        $this->load->view('layout/footer');
+        return false;
       } else {
         $config['upload_path'] = './assets/bukti_pembayaran';
         $config['allowed_types'] = 'jpg|png|jpeg';
@@ -186,13 +208,16 @@ class Pendaftaran extends CI_Controller
                   </button>
                 </div>'
           );
+          $data["dataUser"] = $this->input->post('user_pendaftar');
+          $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+          $data["dataProdi"] = $this->pendaftaran_model->getProdi();
+          $this->load->view('layout/header');
+          $this->load->view('pages/pendaftaran', $data);
+          $this->load->view('layout/footer');
           return false;
         }
+        $data["bukti_lunas_pendaftar"] = $this->upload->data('file_name');
       }
-    }
-
-    if ($id === "") {
-      $data["bukti_lunas_pendaftar"] = $this->upload->data('file_name');
     }
 
     // Insert or Update Database
@@ -222,6 +247,7 @@ class Pendaftaran extends CI_Controller
     $id_pendaftar = $this->uri->segment(3);
     $data["dataPendaftar"] = $this->pendaftaran_model->getPendaftar($id_pendaftar);
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+    $data["dataProdi"] = $this->pendaftaran_model->getProdi();
 
     $this->load->view("layout/header");
     $this->load->view("pages/editPendaftaran", $data);

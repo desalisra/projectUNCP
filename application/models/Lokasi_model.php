@@ -12,10 +12,10 @@ class Lokasi_model extends CI_Model
   public function getLokasi($id_lokasi = null)
   {
     if (is_null($id_lokasi)) {
-      $sql = "SELECT A.*,COUNT(B.instansi_pendaftar) AS pendaftar
+      $sql = "SELECT A.*,COUNT(C.instansi_pendaftar) AS pendaftar
               FROM tb_lokasi A
-              LEFT JOIN tb_pendaftaran B
-              ON A.id_lokasi = B.instansi_pendaftar
+              LEFT JOIN tb_pendaftaran C
+              ON A.id_lokasi = C.instansi_pendaftar
               GROUP BY A.id_lokasi";
       $result = $this->db->query($sql);
     } else {

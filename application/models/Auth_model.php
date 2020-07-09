@@ -14,7 +14,7 @@ class Auth_model extends CI_Model
   {
     $email  = $this->input->post('username');
     $password = $this->input->post('password');
-    $pass  = md5($password);
+    $pass  = $password;
 
     $query    = $this->db->query("SELECT * FROM tb_user WHERE email_user = '$email' AND pass_user = '$pass'");
 

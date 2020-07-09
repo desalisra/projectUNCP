@@ -126,10 +126,9 @@
                 <div class="form-group">
                   <label for="prodi">Program Studi</label>
                   <select class="form-control <?= (strlen(form_error('prodi')) > 0) ? "is-invalid" : "" ?>" id="prodi" name="prodi" value="<?= (strlen(form_error('prodi')) > 0) ? set_value("prodi") : $row["prodi_pendaftar"] ?>">
-                    <option value="matematika" <?= ($row["prodi_pendaftar"] == "matematika") ? "selected" : "" ?>>Matematika</option>
-                    <option value="fisika" <?= ($row["prodi_pendaftar"] == "fisika") ? "selected" : "" ?>>Fisika</option>
-                    <option value="kimia" <?= ($row["prodi_pendaftar"] == "kimia") ? "selected" : "" ?>>Kimia</option>
-                    <option value="biologi" <?= ($row["prodi_pendaftar"] == "biologi") ? "selected" : "" ?>>Biologi</option>
+                    <?php foreach ($dataProdi as $row1) : ?>
+                      <option value="<?= $row1["prodi_lokasi"] ?>" <?= ($row1["prodi_lokasi"] == $row["prodi_pendaftar"]) ? "selected" : "" ?>> <?= $row1["prodi_lokasi"] ?> </option>
+                    <?php endforeach ?>
                   </select>
                   <div class="invalid-feedback">
                     <?= form_error('prodi', '<small class="text-danger pl-2">', '</small>') ?>
@@ -139,7 +138,6 @@
                 <div class="form-group">
                   <label for="instansi">Instansi</label>
                   <select class="form-control <?= (strlen(form_error('instansi')) > 0) ? "is-invalid" : "" ?>" id="instansi" name="instansi" value="<?= (strlen(form_error('instansi')) > 0) ? set_value("instansi") : $row["instansi_pendaftar"] ?>">
-                    <option value="">Pilih Instansi</option>
                     <?php foreach ($dataInstansi as $row1) : ?>
                       <option value="<?= $row1["id_lokasi"] ?>" <?= ($row1["id_lokasi"] == $row["instansi_pendaftar"]) ? "selected" : "" ?>> <?= $row1["instansi_lokasi"] ?> </option>
                     <?php endforeach ?>
@@ -149,7 +147,7 @@
                   </div>
                 </div>
                 <input type="file" id="bukti-pembayaran" name="bukti-pembayaran" hidden>
-                <input type="text" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $row["user_pendaftar"] ?>" hidden>
+                <input type="hidden" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $row["user_pendaftar"] ?>" hidden>
                 <button type="submit" class="btn btn-primary">Edit</button>
               <?php endforeach ?>
             </form>

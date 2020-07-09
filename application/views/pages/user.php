@@ -20,6 +20,7 @@
                     <th width="5%" class="text-center">No</th>
                     <th class="text-center">Nama Lengkap</th>
                     <th class="text-center">Username</th>
+                    <th class="text-center">Password</th>
                     <th class="text-center">Level</th>
                     <th width="5%" class="text-center">Edit</th>
                     <th width="5%" class="text-center">Delete</th>
@@ -33,6 +34,7 @@
                       <td class="text-center"><?= $no++ ?></td>
                       <td><?= $row["nama_user"]  ?></td>
                       <td><?= $row["email_user"]  ?></td>
+                      <td><?= $row["pass_user"]  ?></td>
                       <td><?= $row["level_user"]  ?></td>
                       <td class="text-center">
                         <a href="#" class="text-success" data-toggle="modal" data-target="#userModal" onclick="ubahData(<?= $row['id_user'] ?>)">

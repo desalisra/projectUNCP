@@ -16,13 +16,6 @@
       <span>Persyaratan</span>
     </a>
   </li>
-  <?php if ($this->session->userdata("user_level") == "Admin") : ?>
-    <li class="nav-item">
-      <a class="nav-link" href="<?= base_url('prodi') ?>">
-        <span>Program Studi</span>
-      </a>
-    </li>
-  <?php endif ?>
 
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('lokasi') ?>">

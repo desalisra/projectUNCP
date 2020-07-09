@@ -16,8 +16,9 @@
                   <thead>
                     <tr>
                       <th width="10%" class="text-center">No</th>
-                      <th width="45%" class="text-center">Program Studi</th>
-                      <th width="45%" class="text-center">Instansi</th>
+                      <th>Program Studi</th>
+                      <th>Instansi</th>
+                      <th width="15%">Kuota Tampung</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -27,6 +28,7 @@
                         <td class="text-center"><?= $no++ ?></td>
                         <td><?= $row["prodi_lokasi"]  ?></td>
                         <td><?= $row["instansi_lokasi"]  ?></td>
+                        <td><?= $row["pendaftar"] . " / " . $row["kuota_lokasi"] . " Mahasiswa" ?></td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -48,8 +50,9 @@
                   <thead>
                     <tr>
                       <th width="5%" class="text-center">No</th>
-                      <th width="40%" class="text-center">Program Studi</th>
-                      <th width="45%" class="text-center">Instansi</th>
+                      <th class="text-center">Program Studi</th>
+                      <th class="text-center">Instansi</th>
+                      <th width="10%" class="text-center">Kuota</th>
                       <th width="5%" class="text-center">Edit</i></th>
                       <th width="5%" class="text-center">Delete</i></th>
                     </tr>
@@ -61,12 +64,13 @@
                         <td class="text-center"><?= $no++ ?></td>
                         <td><?= $row["prodi_lokasi"]  ?></td>
                         <td><?= $row["instansi_lokasi"]  ?></td>
-                        <td>
+                        <td class="text-center"><?= $row["kuota_lokasi"]  ?></td>
+                        <td class="text-center">
                           <a href="#" class="text-success" data-toggle="modal" data-target="#lokasiModal" onclick="ubahData(<?= $row['id_lokasi'] ?>)">
                             <i class="fas fa-pen" aria-hidden="true"></i>
                           </a>
                         </td>
-                        <td>
+                        <td class="text-center">
                           <a href="<?= base_url("lokasi/deleteLokasi/") . $row["id_lokasi"]  ?>" class="text-danger" onclick="return confirm('Yakin menghapus data ini ..? ')">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                           </a>
@@ -96,6 +100,9 @@
                     </div>
                     <div class="form-group">
                       <input type="text" id="instansi" class="form-control" name="instansi" placeholder="Masukan Instansi" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" id="kuota" class="form-control" name="kuota" placeholder="Masukan Kuota" required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -136,6 +143,7 @@
         $("#id_lokasi").val(data.id_lokasi);
         $("#prodi").val(data.prodi_lokasi);
         $("#instansi").val(data.instansi_lokasi);
+        $("#kuota").val(data.kuota_lokasi);
       });
     });
   }
@@ -144,5 +152,6 @@
     $("#id_lokasi").val("");
     $("#prodi").val("");
     $("#instansi").val("");
+    $("#kuota").val("");
   }
 </script>

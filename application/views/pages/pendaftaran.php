@@ -8,7 +8,7 @@
         <div class="card shadow">
           <div class="card-header py-3">
             <h4 class="text-center"><strong>Form Pendaftaran</strong></h4>
-            <form action="<?= base_url('pendaftaran/daftar') ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= base_url('pendaftaran/validasiInput') ?>" method="POST" enctype="multipart/form-data">
               <input type="hidden" class="form-control" id="id_pendaftar" name="id_pendaftar" value="">
               <P><strong>Data Calon Mahasiswa PKL</strong></P>
 
@@ -74,7 +74,7 @@
 
               <div class="form-group">
                 <label for="alamat">Alamat Lengkap</label>
-                <textarea class="form-control <?= (strlen(form_error('alamat')) > 0) ? "is-invalid" : "" ?>" name="alamat" id="alamat" rows="5" style="resize: none;"><?= set_value("alamat") ?></textarea>
+                <input type="text" class="form-control <?= (strlen(form_error('alamat')) > 0) ? "is-invalid" : "" ?>" name="alamat" id="alamat" value="<?= set_value("alamat") ?>">
                 <div class="invalid-feedback">
                   <?= form_error('alamat', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
@@ -91,8 +91,8 @@
               </div>
 
               <div class="form-group">
-                <label for="alamat-wali">Alamat Lengkap</label>
-                <textarea class="form-control <?= (strlen(form_error('alamat-wali')) > 0) ? "is-invalid" : "" ?>" name="alamat-wali" id="alamat-wali" rows="5" style="resize: none;"><?= set_value("alamat-wali") ?></textarea>
+                <label for="alamat-wali">Alamat Wali</label>
+                <input class="form-control <?= (strlen(form_error('alamat-wali')) > 0) ? "is-invalid" : "" ?>" name="alamat-wali" id="alamat-wali" value="<?= set_value("alamat-wali") ?>">
                 <div class="invalid-feedback">
                   <?= form_error('alamat-wali', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
@@ -154,7 +154,7 @@
                 <label for="bukti-pembayaran">Upload Bukti Pembayaran</label>
                 <input type="file" class="d-block" id="bukti-pembayaran" name="bukti-pembayaran">
               </div>
-              <input type="hidden" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $dataUser ?>">
+              <input type="text" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $dataUser ?>">
               <button type="submit" class="btn btn-primary">Daftar</button>
             </form>
           </div>

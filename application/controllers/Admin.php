@@ -27,6 +27,27 @@ class Admin extends CI_Controller
     $this->load->view('layout/footer');
   }
 
+  public function validasiInputSimmbol($data)
+  {
+    $result = true;
+    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["nama"])) $result = false;
+    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["username"])) $result = false;
+
+    if (!$result) {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Save Gagal</strong> Inputan tidak boleh mengandung simbol.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>'
+      );
+
+      redirect('admin');
+    }
+  }
+
   public function addAdmin()
   {
     // Get Data Inputan 
@@ -37,6 +58,9 @@ class Admin extends CI_Controller
       "password1" => $this->input->post('password1'),
       "password2" => $this->input->post('password2')
     ];
+
+    // Cek Inputan Simbol
+    $this->validasiInputSimmbol($data);
 
     $pesan_error = "";
     $pesan_sucess = "";

@@ -12,19 +12,32 @@ class Lokasi_model extends CI_Model
   public function getLokasi($id_lokasi = null)
   {
     if (is_null($id_lokasi)) {
-      $query = $this->db->query("SELECT * FROM tb_lokasi");
+      $sql = "SELECT A.*,COUNT(B.instansi_pendaftar) AS pendaftar
+              FROM tb_lokasi A
+              LEFT JOIN tb_pendaftaran B
+              ON A.id_lokasi = B.instansi_pendaftar
+              GROUP BY A.id_lokasi";
+      $result = $this->db->query($sql);
     } else {
-      $query = $this->db->query("SELECT * FROM tb_lokasi WHERE id_lokasi = '$id_lokasi' ");
+      $result = $this->db->query("SELECT * FROM tb_lokasi WHERE id_lokasi = '$id_lokasi' ");
     }
-    return $query->result_array();
+    return $result->result_array();
   }
 
-  public function addLokasi($id_lokasi = null, $prodi, $instansi)
+  public function addLokasi($id_lokasi = null, $data)
   {
     if ($id_lokasi == "") {
-      $sql = "INSERT INTO tb_lokasi (prodi_lokasi,instansi_lokasi) VALUES ('$prodi','$instansi') ";
+      $sql = "INSERT INTO tb_lokasi (prodi_lokasi,instansi_lokasi,kuota_lokasi) VALUES (";
+      $sql = $sql . "'" . $data["prodi"] . "',";
+      $sql = $sql . "'" . $data["instansi"] . "',";
+      $sql = $sql . "'" . $data["kuota"] . "'";
+      $sql = $sql . ")";
     } else {
-      $sql = "UPDATE tb_lokasi SET prodi_lokasi = '$prodi', instansi_lokasi = '$instansi' WHERE id_lokasi = '$id_lokasi' ";
+      $sql = "UPDATE tb_lokasi SET ";
+      $sql = $sql . "prodi_lokasi = '" . $data["prodi"] . "',";
+      $sql = $sql . "instansi_lokasi = '" . $data["instansi"] . "',";
+      $sql = $sql . "kuota_lokasi = '" . $data["kuota"] . "'";
+      $sql = $sql . "WHERE id_lokasi = '$id_lokasi'";
     }
 
     $this->db->query($sql);

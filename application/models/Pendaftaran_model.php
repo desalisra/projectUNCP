@@ -63,4 +63,16 @@ class Pendaftaran_model extends CI_Model
     $this->db->query("DELETE FROM tb_jadwal WHERE pendaftar_jadwal = '$id_pendaftar' ");
     $this->db->query("DELETE FROM tb_pendaftaran WHERE id_pendaftaran = '$id_pendaftar' ");
   }
+
+  public function getKuota($id_instansi)
+  {
+    $sql = "SELECT A.kuota_lokasi, COUNT(B.instansi_pendaftar) AS pendaftar
+            FROM tb_lokasi A
+            LEFT JOIN tb_pendaftaran B
+            ON A.id_lokasi = B.instansi_pendaftar
+            WHERE A.id_lokasi = '$id_instansi'
+            GROUP BY A.id_lokasi";
+    $result = $this->db->query($sql);
+    return $result->row();
+  }
 }

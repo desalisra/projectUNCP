@@ -8,7 +8,7 @@
         <div class="card shadow">
           <div class="card-header py-3">
             <h4 class="text-center"><strong>Edit Pendaftaran</strong></h4>
-            <form action="<?= base_url('pendaftaran/daftar') ?>" method="POST">
+            <form action="<?= base_url('pendaftaran/daftar') ?>" method="POST" enctype="multipart/form-data">
               <?php foreach ($dataPendaftar as $row) : ?>
                 <input type="hidden" class="form-control" id="id_pendaftar" name="id_pendaftar" value="<?= $row["id_pendaftaran"] ?>">
                 <P><strong>Data Calon Mahasiswa PKL</strong></P>
@@ -74,7 +74,7 @@
 
                 <div class="form-group">
                   <label for="alamat">Alamat Lengkap</label>
-                  <textarea class="form-control <?= (strlen(form_error('alamat')) > 0) ? "is-invalid" : "" ?>" name="alamat" id="alamat" rows="5" style="resize: none;"><?= (strlen(form_error('alamat')) > 0) ? set_value("alamat") : $row["alamat_pendaftar"] ?></textarea>
+                  <input type="text" class="form-control <?= (strlen(form_error('alamat')) > 0) ? "is-invalid" : "" ?>" name="alamat" id="alamat" value="<?= (strlen(form_error('alamat')) > 0) ? set_value("alamat") : $row["alamat_pendaftar"] ?>">
                   <div class="invalid-feedback">
                     <?= form_error('alamat', '<small class="text-danger pl-2">', '</small>') ?>
                   </div>
@@ -91,8 +91,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="alamat-wali">Alamat Lengkap</label>
-                  <textarea class="form-control <?= (strlen(form_error('alamat-wali')) > 0) ? "is-invalid" : "" ?>" name="alamat-wali" id="alamat-wali" rows="5" style="resize: none;"><?= (strlen(form_error('alamat-wali')) > 0) ? set_value("alamat-wali") : $row["alamat_wali_pendaftar"] ?></textarea>
+                  <label for="alamat-wali">Alamat Wali</label>
+                  <input type="text" class="form-control <?= (strlen(form_error('alamat-wali')) > 0) ? "is-invalid" : "" ?>" name="alamat-wali" id="alamat-wali" value="<?= (strlen(form_error('alamat-wali')) > 0) ? set_value("alamat-wali") : $row["alamat_wali_pendaftar"] ?>">
                   <div class="invalid-feedback">
                     <?= form_error('alamat-wali', '<small class="text-danger pl-2">', '</small>') ?>
                   </div>
@@ -148,7 +148,8 @@
                     <?= form_error('instansi', '<small class="text-danger pl-2">', '</small>') ?>
                   </div>
                 </div>
-                <input type="hidden" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $row["user_pendaftar"] ?>">
+                <input type="file" id="bukti-pembayaran" name="bukti-pembayaran" hidden>
+                <input type="text" class="form-control" id="user_pendaftar" name="user_pendaftar" value="<?= $row["user_pendaftar"] ?>" hidden>
                 <button type="submit" class="btn btn-primary">Edit</button>
               <?php endforeach ?>
             </form>

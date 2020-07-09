@@ -26,11 +26,33 @@ class Persyaratan extends CI_Controller
     $this->load->view('layout/footer');
   }
 
+  public function validasiInputSimmbol($data)
+  {
+    $result = true;
+    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data)) $result = false;
+
+    if (!$result) {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Save Gagal</strong> Inputan tidak boleh mengandung simbol.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>'
+      );
+      redirect('persyaratan');
+    }
+  }
+
   // Persyaratan
   public function addPersyaratan()
   {
     $id_persyaratan = $this->input->post('id_persyaratan');
     $persyaratan = $this->input->post('persyaratan');
+
+    $this->validasiInputSimmbol($persyaratan);
+
     $this->Persyaratan_model->addPersyaratan($id_persyaratan, $persyaratan);
 
     $this->session->set_flashdata(

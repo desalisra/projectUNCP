@@ -33,7 +33,7 @@ class Auth_model extends CI_Model
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Login Gagal,</strong> Email atau Password Salah.
+          <strong>Login Gagal,</strong> Username atau Password Salah.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

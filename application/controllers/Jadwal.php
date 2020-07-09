@@ -38,11 +38,37 @@ class Jadwal extends CI_Controller
     echo json_encode($data);
   }
 
+  public function validasiInputSimmbol($data)
+  {
+    $result = true;
+    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["pembimbing"])) $result = false;
+
+    if (!$result) {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Save Gagal</strong> Inputan tidak boleh mengandung simbol.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>'
+      );
+
+      redirect('jadwal');
+    }
+  }
+
   public function addJadwal()
   {
     $id_pendaftar = $this->input->post('id_pendaftar');
-    $jadwal = $this->input->post('jadwal');
-    $pembimbing = $this->input->post('pembimbing');
+    $data = [
+      "jadwal" => $this->input->post('jadwal'),
+      "pembimbing" => $this->input->post('pembimbing')
+    ];
+
+    $this->validasiInputSimmbol($data);
+
+    $this->jadwal_model->addJadwal($id_pendaftar, $data);
 
     $this->session->set_flashdata(
       'message',
@@ -53,8 +79,6 @@ class Jadwal extends CI_Controller
         </button>
       </div>'
     );
-
-    $this->jadwal_model->addJadwal($id_pendaftar, $jadwal, $pembimbing);
     redirect('jadwal');
   }
 

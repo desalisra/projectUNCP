@@ -9,14 +9,16 @@ class Jadwal_model extends CI_Model
   }
 
   // Jadwal
-  public function addJadwal($id_pendaftar, $jadwal, $pembimbing)
+  public function addJadwal($id_pendaftar, $data)
   {
-    $sql = "UPDATE tb_pendaftaran SET status_pendaftar = '1' WHERE id_pendaftaran = '$id_pendaftar'";
+    $sql = "UPDATE tb_pendaftaran 
+            SET status_pendaftar = '1' 
+            WHERE id_pendaftaran = '$id_pendaftar'";
     $result = $this->db->query($sql);
 
     $sql = "INSERT INTO tb_jadwal 
               (pendaftar_jadwal,tanggal_jadwal,pembimbing_jadwal)
-              VALUES ('$id_pendaftar','$jadwal','$pembimbing')";
+              VALUES ('$id_pendaftar','" . $data["jadwal"] . "','" . $data["pembimbing"] . "')";
 
     $result = $this->db->query($sql);
     return $result;

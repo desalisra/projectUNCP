@@ -21,8 +21,9 @@ class User extends CI_Controller
   public function index()
   {
     $data["dataUser"] = $this->user_model->getUser();
+    $data["menu"] = "user";
 
-    $this->load->view('layout/header');
+    $this->load->view('layout/header', $data);
     $this->load->view('pages/user', $data);
     $this->load->view('layout/footer');
   }

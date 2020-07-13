@@ -29,8 +29,9 @@ class Pendaftaran extends CI_Controller
     $data["dataUser"] = $id_pendaftar;
     $data["dataProdi"] = $this->pendaftaran_model->getProdi();
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
+    $data["menu"] = "pendaftaran";
 
-    $this->load->view('layout/header');
+    $this->load->view('layout/header', $data);
     $this->load->view('pages/pendaftaran', $data);
     $this->load->view('layout/footer');
   }
@@ -40,8 +41,9 @@ class Pendaftaran extends CI_Controller
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
     $data["dataProdi"] = $this->pendaftaran_model->getProdi();
     $data["dataPendaftar"] = $this->pendaftaran_model->getPendaftar();
+    $data["menu"] = "pendaftaran";
 
-    $this->load->view('layout/header');
+    $this->load->view('layout/header', $data);
     $this->load->view('pages/mpendaftaran', $data);
     $this->load->view('layout/footer');
   }
@@ -71,7 +73,9 @@ class Pendaftaran extends CI_Controller
       $data["dataUser"] = $this->input->post('user_pendaftar');
       $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
       $data["dataProdi"] = $this->pendaftaran_model->getProdi();
-      $this->load->view('layout/header');
+      $data["menu"] = "pendaftaran";
+
+      $this->load->view('layout/header', $data);
       $this->load->view('pages/pendaftaran', $data);
       $this->load->view('layout/footer');
     } else {
@@ -108,7 +112,9 @@ class Pendaftaran extends CI_Controller
       $data["dataUser"] = $this->input->post('user_pendaftar');
       $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
       $data["dataProdi"] = $this->pendaftaran_model->getProdi();
-      $this->load->view('layout/header');
+      $data["menu"] = "pendaftaran";
+
+      $this->load->view('layout/header', $data);
       $this->load->view('pages/pendaftaran', $data);
       $this->load->view('layout/footer');
 
@@ -162,7 +168,9 @@ class Pendaftaran extends CI_Controller
       $data["dataUser"] = $this->input->post('user_pendaftar');
       $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
       $data["dataProdi"] = $this->pendaftaran_model->getProdi();
-      $this->load->view('layout/header');
+      $data["menu"] = "pendaftaran";
+
+      $this->load->view('layout/header', $data);
       $this->load->view('pages/pendaftaran', $data);
       $this->load->view('layout/footer');
       return false;
@@ -186,7 +194,9 @@ class Pendaftaran extends CI_Controller
         $data["dataUser"] = $this->input->post('user_pendaftar');
         $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
         $data["dataProdi"] = $this->pendaftaran_model->getProdi();
-        $this->load->view('layout/header');
+        $data["menu"] = "pendaftaran";
+
+        $this->load->view('layout/header', $data);
         $this->load->view('pages/pendaftaran', $data);
         $this->load->view('layout/footer');
         return false;
@@ -211,7 +221,9 @@ class Pendaftaran extends CI_Controller
           $data["dataUser"] = $this->input->post('user_pendaftar');
           $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
           $data["dataProdi"] = $this->pendaftaran_model->getProdi();
-          $this->load->view('layout/header');
+          $data["menu"] = "pendaftaran";
+
+          $this->load->view('layout/header', $data);
           $this->load->view('pages/pendaftaran', $data);
           $this->load->view('layout/footer');
           return false;
@@ -248,8 +260,9 @@ class Pendaftaran extends CI_Controller
     $data["dataPendaftar"] = $this->pendaftaran_model->getPendaftar($id_pendaftar);
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
     $data["dataProdi"] = $this->pendaftaran_model->getProdi();
+    $data["menu"] = "pendaftaran";
 
-    $this->load->view("layout/header");
+    $this->load->view("layout/header", $data);
     $this->load->view("pages/editPendaftaran", $data);
     $this->load->view("layout/footer");
   }

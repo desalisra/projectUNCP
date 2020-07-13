@@ -23,9 +23,9 @@ class Jadwal extends CI_Controller
   {
     $data["dataPendaftar"] = $this->jadwal_model->getPendaftar();
     $data["dataJadwal"] = $this->jadwal_model->getJadwal();
+    $data["menu"] = "jadwal";
 
-
-    $this->load->view('layout/header');
+    $this->load->view('layout/header', $data);
     $this->load->view('pages/jadwal', $data);
     $this->load->view('layout/footer');
   }
@@ -38,16 +38,40 @@ class Jadwal extends CI_Controller
     echo json_encode($data);
   }
 
-  public function validasiInputSimmbol($data)
-  {
-    $result = true;
-    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["pembimbing"])) $result = false;
+  // public function validasiInputSimmbol($data)
+  // {
+  //   $result = true;
+  //   if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["pembimbing"])) $result = false;
 
-    if (!$result) {
+  //   if (!$result) {
+  //     $this->session->set_flashdata(
+  //       'message',
+  //       '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  //         <strong>Save Gagal</strong> Inputan tidak boleh mengandung simbol.
+  //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  //           <span aria-hidden="true">&times;</span>
+  //         </button>
+  //       </div>'
+  //     );
+
+  //     redirect('jadwal');
+  //   }
+  // }
+
+  public function addJadwal()
+  {
+    $id_pendaftar = $this->input->post('id_pendaftar');
+    $data = [
+      "mulai_jadwal" => $this->input->post('mulai_jadwal'),
+      "selesai_jadwal" => $this->input->post('selesai_jadwal'),
+      "pembimbing" => $this->input->post('pembimbing')
+    ];
+
+    if ($data["mulai_jadwal"] > $data["selesai_jadwal"]) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Save Gagal</strong> Inputan tidak boleh mengandung simbol.
+          <strong>Penjadwalan Gagal</strong> Tanggal mulai lebih besar dari Tanggal selesai.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -56,17 +80,8 @@ class Jadwal extends CI_Controller
 
       redirect('jadwal');
     }
-  }
 
-  public function addJadwal()
-  {
-    $id_pendaftar = $this->input->post('id_pendaftar');
-    $data = [
-      "jadwal" => $this->input->post('jadwal'),
-      "pembimbing" => $this->input->post('pembimbing')
-    ];
-
-    $this->validasiInputSimmbol($data);
+    // $this->validasiInputSimmbol($data);
 
     $this->jadwal_model->addJadwal($id_pendaftar, $data);
 
@@ -101,72 +116,118 @@ class Jadwal extends CI_Controller
 
     $data = $this->jadwal_model->getReport($id_pendaftaran);
 
+    $pdf->Cell(5, 6, '', 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(50, 7, 'NIM', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->nim_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Nama Mahasiswa', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->nama_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Tempat Lahir', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->tempat_lahir_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Tanggal Lahir', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->tanggal_lahir_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Jenis Kelamin', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->jk_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Agama', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->agama_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Telepon', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->telepon_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Alamat', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->alamat_pendaftar, 0, 1);
+    $pdf->Cell(70, 6, 'NIM', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->nim_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Nama Mahasiswa', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->nama_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Tempat Lahir', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->tempat_lahir_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Tanggal Lahir', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->tanggal_lahir_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Jenis Kelamin', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->jk_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Agama', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->agama_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Telepon', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->telepon_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Alamat', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->alamat_pendaftar, 0, 1);
 
     $pdf->Cell(10, 5, '', 0, 1);
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(189, 7, 'Data Wali', 0, 1);
+    $pdf->Cell(189, 6, 'Data Wali', 0, 1);
     $pdf->Cell(10, 3, '', 0, 1);
-
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(50, 7, 'Nama Wali', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->nama_wali_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Alamat Wali', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->alamat_wali_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Telpon Wali', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->telepon_wali_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Pendidikan Wali', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->pendidikan_wali_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Pekerjaan Wali', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->pekerjaan_wali_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Nama Wali', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->nama_wali_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Alamat Wali', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->alamat_wali_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Telpon Wali', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->telepon_wali_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Pendidikan Wali', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->pendidikan_wali_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Pekerjaan Wali', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->pekerjaan_wali_pendaftar, 0, 1);
 
     $pdf->Cell(10, 5, '', 0, 1);
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(189, 7, 'Data PKL', 0, 1);
+    $pdf->Cell(189, 6, 'Data PKL', 0, 1);
     $pdf->Cell(10, 3, '', 0, 1);
-
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(50, 7, 'Program Studi', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->prodi_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Instansi PKL', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->instansi_lokasi, 0, 1);
-    $pdf->Cell(50, 7, 'Tanggal Daftar', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Cell(10, 7, $data->tanggal_daftar_pendaftar, 0, 1);
-    $pdf->Cell(50, 7, 'Bukti Lunas', 0, 0);
-    $pdf->Cell(10, 7, ':', 0, 0);
-    $pdf->Image(base_url('assets/bukti_pembayaran/') . $data->bukti_lunas_pendaftar, 70, 188, 35);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Dosen Pembimbing', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, (is_null($data->pembimbing_jadwal)) ? "-" : $data->pembimbing_jadwal, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Program Studi', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->prodi_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Instansi PKL', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->instansi_lokasi, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Tanggal Daftar / Waktu Daftar', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->tanggal_daftar_pendaftar, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Pelepasan PKL', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, (is_null($data->mulai_jadwal)) ? "-" : $data->mulai_jadwal, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Penarikan PKL', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, (is_null($data->selesai_jadwal)) ? "-" : $data->selesai_jadwal, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Bukti Lunas', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Image(base_url('assets/bukti_pembayaran/') . $data->bukti_lunas_pendaftar, 95, 188, 50, 30);
 
 
     $pdf->Cell(10, 50, '', 0, 1);

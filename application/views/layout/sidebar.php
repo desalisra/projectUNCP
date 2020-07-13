@@ -7,23 +7,23 @@
 
   <hr class="sidebar-divider my-0">
 
-  <li class="nav-item active">
+  <li class="nav-item <?= ($menu == "home" ? "active" : "") ?>">
     <a class="nav-link" href="<?= base_url() ?>">
       <span>Beranda</span></a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item <?= ($menu == "persyaratan" ? "active" : "") ?>">
     <a class="nav-link" href="<?= base_url('persyaratan') ?>">
       <span>Persyaratan</span>
     </a>
   </li>
 
-  <li class="nav-item">
+  <li class="nav-item <?= ($menu == "lokasi" ? "active" : "") ?>">
     <a class="nav-link" href="<?= base_url('lokasi') ?>">
       <span>Lokasi</span>
     </a>
   </li>
   <?php if ($this->session->userdata("user_level") == "User") : ?>
-    <li class="nav-item">
+    <li class="nav-item <?= ($menu == "pendaftaran" ? "active" : "") ?>">
       <a class="nav-link" href="<?= base_url('pendaftaran') ?>">
         <span>Pendaftaran</span>
       </a>
@@ -31,19 +31,19 @@
   <?php endif ?>
 
   <?php if ($this->session->userdata("user_level") == "Admin") : ?>
-    <li class="nav-item">
+    <li class="nav-item <?= ($menu == "user" ? "active" : "") ?>">
       <a class="nav-link" href="<?= base_url('user') ?>">
         <span>Management User</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item <?= ($menu == "pendaftaran" ? "active" : "") ?>">
       <a class="nav-link" href="<?= base_url('pendaftaran/manajemen') ?>">
         <span>Management Pendaftaran</span>
       </a>
     </li>
   <?php endif ?>
 
-  <li class="nav-item">
+  <li class="nav-item <?= ($menu == "jadwal" ? "active" : "") ?>">
     <a class="nav-link" href="<?= base_url('jadwal') ?>">
       <span>Jadwal</span>
     </a>

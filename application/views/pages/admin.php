@@ -109,6 +109,7 @@
 
 <script>
   function ubahData(id) {
+    clearForm();
     $.getJSON('<?php echo base_url("admin/editAdmin/"); ?>' + id, function(data) {
       data = data.dataAdmin;
       console.log(data);
@@ -124,5 +125,7 @@
     $("#id_user").val("");
     $("#nama").val("");
     $("#username").val("");
+    $("#password1").val("");
+    $("#password2").val("");
   }
 </script>

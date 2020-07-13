@@ -17,8 +17,8 @@ class Jadwal_model extends CI_Model
     $result = $this->db->query($sql);
 
     $sql = "INSERT INTO tb_jadwal 
-              (pendaftar_jadwal,tanggal_jadwal,pembimbing_jadwal)
-              VALUES ('$id_pendaftar','" . $data["jadwal"] . "','" . $data["pembimbing"] . "')";
+              (pendaftar_jadwal,mulai_jadwal,selesai_jadwal,pembimbing_jadwal)
+              VALUES ('$id_pendaftar','" . $data["mulai_jadwal"] . "','" . $data["selesai_jadwal"] . "','"  . $data["pembimbing"] . "')";
 
     $result = $this->db->query($sql);
     return $result;
@@ -27,7 +27,7 @@ class Jadwal_model extends CI_Model
   public function getJadwal()
   {
     $user = $this->session->userdata("user_id");
-    $query = "SELECT A.id_pendaftaran,A.nama_pendaftar,B.instansi_lokasi,D.tanggal_jadwal,D.pembimbing_jadwal
+    $query = "SELECT A.id_pendaftaran,A.nama_pendaftar,B.instansi_lokasi,D.mulai_jadwal,D.selesai_jadwal,D.pembimbing_jadwal
               FROM tb_pendaftaran A 
               LEFT JOIN tb_lokasi B ON A.instansi_pendaftar = B.id_lokasi
               LEFT JOIN tb_user C ON A.user_pendaftar = C.id_user
@@ -57,10 +57,11 @@ class Jadwal_model extends CI_Model
 
   public function getReport($id_pendaftar = 4)
   {
-    $query = "SELECT A.*,B.instansi_lokasi
+    $query = "SELECT A.*,B.instansi_lokasi,
+              C.pembimbing_jadwal,C.mulai_jadwal,C.selesai_jadwal
               FROM tb_pendaftaran A 
-              LEFT JOIN tb_lokasi B 
-              ON A.instansi_pendaftar = B.id_lokasi
+              LEFT JOIN tb_lokasi B ON A.instansi_pendaftar = B.id_lokasi
+              LEFT JOIN tb_jadwal C ON A.id_pendaftaran = C.pendaftar_jadwal
               WHERE id_pendaftaran = '$id_pendaftar'";
 
     $result = $this->db->query($query);

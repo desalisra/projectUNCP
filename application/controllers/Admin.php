@@ -21,8 +21,9 @@ class Admin extends CI_Controller
   public function index()
   {
     $data["dataAdmin"] = $this->admin_model->getAdmin();
+    $data["menu"] = "";
 
-    $this->load->view('layout/header');
+    $this->load->view('layout/header', $data);
     $this->load->view('pages/admin', $data);
     $this->load->view('layout/footer');
   }

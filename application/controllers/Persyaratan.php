@@ -21,7 +21,9 @@ class Persyaratan extends CI_Controller
   public function index()
   {
     $data["dataPersyaratan"] = $this->Persyaratan_model->getPersyaratan();
-    $this->load->view('layout/header');
+    $data["menu"] = "persyaratan";
+
+    $this->load->view('layout/header', $data);
     $this->load->view('pages/persyaratan', $data);
     $this->load->view('layout/footer');
   }

@@ -16,8 +16,9 @@
                       <th width="5%" class="text-center" scope="col">No</th>
                       <th width="25%" scope="col">Nama Mahasiswa</th>
                       <th scope="col">Instansi</th>
-                      <th scope="col">Waktu</th>
-                      <th width="25%" scope="col">Nama Pembimbing</th>
+                      <th scope="col">Waktu Mulai</th>
+                      <th scope="col">Waktu Selesai</th>
+                      <th width="25%" scope="col">Dosen Pembimbing</th>
                       <th width="5%" class="text-center" scope="col">Print</th>
                     </tr>
                   </thead>
@@ -28,7 +29,8 @@
                         <th class="text-center" scope="row"><?= $no++ ?></th>
                         <td><?= $row["nama_pendaftar"] ?></td>
                         <td><?= $row["instansi_lokasi"] ?></td>
-                        <td><?= (is_null($row["tanggal_jadwal"])) ? "Menunggu jadwal dari TU" : $row["tanggal_jadwal"] ?></td>
+                        <td><?= (is_null($row["mulai_jadwal"])) ? "Menunggu jadwal dari TU" : $row["mulai_jadwal"] ?></td>
+                        <td><?= (is_null($row["selesai_jadwal"])) ? "Menunggu jadwal dari TU" : $row["selesai_jadwal"] ?></td>
                         <td><?= (is_null($row["pembimbing_jadwal"])) ? "Menunggu jadwal dari TU" : $row["pembimbing_jadwal"] ?></td>
                         <td class="text-center">
                           <a href="<?= base_url('jadwal/exportPDF/') . $row["id_pendaftaran"] ?>" target="_balnk"><i class="fas fa-print"></i></a>
@@ -103,7 +105,12 @@
                       <input type="text" id="nama" class="form-control" name="nama" disabled>
                     </div>
                     <div class="form-group">
-                      <input type="date" id="jadwal" class="form-control" name="jadwal" placeholder="Masukan Program Studi" required>
+                      <span>Tanggal Mulai</span>
+                      <input type="date" id="mulai_jadwal" class="form-control" name="mulai_jadwal" placeholder="Masukan Program Studi" required>
+                    </div>
+                    <div class="form-group">
+                      <span>Tanggal Selesai</span>
+                      <input type="date" id="selesai_jadwal" class="form-control" name="selesai_jadwal" placeholder="Masukan Program Studi" required>
                     </div>
                     <div class="form-group">
                       <input type="text" id="pembimbing" class="form-control" name="pembimbing" placeholder="Masukan Dosen Pembimbing" required>
@@ -140,6 +147,7 @@
 
 <script>
   function ubahData(id) {
+    clearForm();
     $.getJSON('<?php echo base_url("jadwal/editJadwal/"); ?>' + id, function(data) {
       data = data.dataPendaftar;
 

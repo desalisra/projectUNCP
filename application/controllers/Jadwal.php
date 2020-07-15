@@ -210,6 +210,16 @@ class Jadwal extends CI_Controller
     $pdf->Cell(10, 6, $data->instansi_lokasi, 0, 1);
 
     $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Telepon Instansi PKL', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->telepon_lokasi, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
+    $pdf->Cell(70, 6, 'Alamat Instansi PKL', 0, 0);
+    $pdf->Cell(10, 6, ':', 0, 0);
+    $pdf->Cell(10, 6, $data->alamat_lokasi, 0, 1);
+
+    $pdf->Cell(5, 6, '', 0, 0);
     $pdf->Cell(70, 6, 'Tanggal Daftar / Waktu Daftar', 0, 0);
     $pdf->Cell(10, 6, ':', 0, 0);
     $pdf->Cell(10, 6, $data->tanggal_daftar_pendaftar, 0, 1);
@@ -227,10 +237,10 @@ class Jadwal extends CI_Controller
     $pdf->Cell(5, 6, '', 0, 0);
     $pdf->Cell(70, 6, 'Bukti Lunas', 0, 0);
     $pdf->Cell(10, 6, ':', 0, 0);
-    $pdf->Image(base_url('assets/bukti_pembayaran/') . $data->bukti_lunas_pendaftar, 95, 188, 50, 30);
+    $pdf->Image(base_url('assets/bukti_pembayaran/') . $data->bukti_lunas_pendaftar, 95, 200, 50, 30);
 
 
-    $pdf->Cell(10, 50, '', 0, 1);
+    $pdf->Cell(10, 40, '', 0, 1);
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(140, 7, 'Diterima Oleh :', 0, 0);
     $pdf->Cell(49, 7, 'Diserahkan Oleh :', 0, 1);

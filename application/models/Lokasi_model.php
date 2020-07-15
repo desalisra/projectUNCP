@@ -27,16 +27,20 @@ class Lokasi_model extends CI_Model
   public function addLokasi($id_lokasi = null, $data)
   {
     if ($id_lokasi == "") {
-      $sql = "INSERT INTO tb_lokasi (prodi_lokasi,instansi_lokasi,kuota_lokasi) VALUES (";
+      $sql = "INSERT INTO tb_lokasi (prodi_lokasi,instansi_lokasi,kuota_lokasi,telepon_lokasi,alamat_lokasi) VALUES (";
       $sql = $sql . "'" . $data["prodi"] . "',";
       $sql = $sql . "'" . $data["instansi"] . "',";
-      $sql = $sql . "'" . $data["kuota"] . "'";
+      $sql = $sql . "'" . $data["kuota"] . "',";
+      $sql = $sql . "'" . $data["telepon_instansi"] . "',";
+      $sql = $sql . "'" . $data["alamat_instansi"] . "'";
       $sql = $sql . ")";
     } else {
       $sql = "UPDATE tb_lokasi SET ";
       $sql = $sql . "prodi_lokasi = '" . $data["prodi"] . "',";
       $sql = $sql . "instansi_lokasi = '" . $data["instansi"] . "',";
-      $sql = $sql . "kuota_lokasi = '" . $data["kuota"] . "'";
+      $sql = $sql . "kuota_lokasi = '" . $data["kuota"] . "',";
+      $sql = $sql . "telepon_lokasi = '" . $data["telepon_instansi"] . "',";
+      $sql = $sql . "alamat_lokasi = '" . $data["alamat_instansi"] . "'";
       $sql = $sql . "WHERE id_lokasi = '$id_lokasi'";
     }
 

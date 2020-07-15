@@ -11,15 +11,14 @@
         <i class="fas fa-user"></i>
       </a>
 
-      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-        <?php if ($this->session->userdata("user_level") == "Admin") : ?>
+      <?php if ($this->session->userdata("user_level") == "Admin") : ?>
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="<?= base_url('admin') ?>">
             <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
             Management Admin
           </a>
-          <hr>
-        <?php endif ?>
-      </div>
+        </div>
+      <?php endif ?>
     </li>
   </ul>
 </nav>

@@ -32,6 +32,8 @@ class Lokasi extends CI_Controller
     $result = true;
     if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["prodi"])) $result = false;
     if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["instansi"])) $result = false;
+    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["telepon_instansi"])) $result = false;
+    if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["alamat_instansi"])) $result = false;
     if (!preg_match("/^[a-z A-Z 0-9 .]*$/", $data["kuota"])) $result = false;
 
     if (!$result) {
@@ -55,6 +57,8 @@ class Lokasi extends CI_Controller
     $data = [
       "prodi" => $this->input->post('prodi'),
       "instansi" => $this->input->post('instansi'),
+      "telepon_instansi" => $this->input->post('tlp-instansi'),
+      "alamat_instansi" => $this->input->post('alamat-instansi'),
       "kuota" => $this->input->post('kuota')
     ];
 

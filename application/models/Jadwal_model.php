@@ -57,7 +57,8 @@ class Jadwal_model extends CI_Model
 
   public function getReport($id_pendaftar = 4)
   {
-    $query = "SELECT A.*,B.instansi_lokasi,
+    $query = "SELECT A.*,
+              B.instansi_lokasi,B.telepon_lokasi,B.alamat_lokasi,
               C.pembimbing_jadwal,C.mulai_jadwal,C.selesai_jadwal
               FROM tb_pendaftaran A 
               LEFT JOIN tb_lokasi B ON A.instansi_pendaftar = B.id_lokasi

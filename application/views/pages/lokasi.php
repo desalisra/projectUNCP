@@ -18,6 +18,8 @@
                       <th width="10%" class="text-center">No</th>
                       <th>Program Studi</th>
                       <th>Instansi</th>
+                      <th>Telepon Instansi</th>
+                      <th>Alamat Instansi</th>
                       <th width="15%">Kuota Tampung</th>
                     </tr>
                   </thead>
@@ -28,6 +30,8 @@
                         <td class="text-center"><?= $no++ ?></td>
                         <td><?= $row["prodi_lokasi"]  ?></td>
                         <td><?= $row["instansi_lokasi"]  ?></td>
+                        <td><?= $row["telepon_lokasi"]  ?></td>
+                        <td><?= $row["alamat_lokasi"]  ?></td>
                         <td><?= $row["pendaftar"] . " / " . $row["kuota_lokasi"] . " Mahasiswa" ?></td>
                       </tr>
                     <?php endforeach ?>
@@ -52,6 +56,8 @@
                       <th width="5%" class="text-center">No</th>
                       <th class="text-center">Program Studi</th>
                       <th class="text-center">Instansi</th>
+                      <th class="text-center">Telepon Instansi</th>
+                      <th class="text-center">Alamat Instansi</th>
                       <th width="10%" class="text-center">Kuota</th>
                       <th width="5%" class="text-center">Edit</i></th>
                       <th width="5%" class="text-center">Delete</i></th>
@@ -64,7 +70,9 @@
                         <td class="text-center"><?= $no++ ?></td>
                         <td><?= $row["prodi_lokasi"]  ?></td>
                         <td><?= $row["instansi_lokasi"]  ?></td>
-                        <td class="text-center"><?= $row["kuota_lokasi"]  ?></td>
+                        <td><?= $row["telepon_lokasi"]  ?></td>
+                        <td><?= $row["alamat_lokasi"]  ?></td>
+                        <td class="text-center"><?= $row["pendaftar"]  ?> / <?= $row["kuota_lokasi"]  ?></td>
                         <td class="text-center">
                           <a href="#" class="text-success" data-toggle="modal" data-target="#lokasiModal" onclick="ubahData(<?= $row['id_lokasi'] ?>)">
                             <i class="fas fa-pen" aria-hidden="true"></i>
@@ -100,6 +108,12 @@
                     </div>
                     <div class="form-group">
                       <input type="text" id="instansi" class="form-control" name="instansi" placeholder="Masukan Instansi" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" id="tlp-instansi" class="form-control" name="tlp-instansi" placeholder="Masukan Telepon Instansi" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" id="alamat-instansi" class="form-control" name="alamat-instansi" placeholder="Masukan Alamat Instansi" required>
                     </div>
                     <div class="form-group">
                       <input type="number" id="kuota" class="form-control" name="kuota" placeholder="Masukan Kuota" required>
@@ -143,6 +157,8 @@
         $("#id_lokasi").val(data.id_lokasi);
         $("#prodi").val(data.prodi_lokasi);
         $("#instansi").val(data.instansi_lokasi);
+        $("#tlp-instansi").val(data.telepon_lokasi);
+        $("#alamat-instansi").val(data.alamat_lokasi);
         $("#kuota").val(data.kuota_lokasi);
       });
     });
@@ -152,6 +168,8 @@
     $("#id_lokasi").val("");
     $("#prodi").val("");
     $("#instansi").val("");
+    $("#tlp-instansi").val("");
+    $("#alamat-instansi").val("");
     $("#kuota").val("");
   }
 </script>

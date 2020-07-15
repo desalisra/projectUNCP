@@ -38,6 +38,11 @@ class Pendaftaran extends CI_Controller
 
   public function manajemen()
   {
+    // User Tidak Bisa Akses
+    if ($this->session->userdata("user_level") == "User") {
+      redirect('home');
+    }
+
     $data["dataInstansi"] = $this->pendaftaran_model->getInstansi();
     $data["dataProdi"] = $this->pendaftaran_model->getProdi();
     $data["dataPendaftar"] = $this->pendaftaran_model->getPendaftar();

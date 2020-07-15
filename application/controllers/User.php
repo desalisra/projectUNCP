@@ -7,6 +7,12 @@ class User extends CI_Controller
   {
     parent::__construct();
     $this->isLogin($this->session->userdata('user_id'));
+
+    // User Tidak Bisa Akses
+    if ($this->session->userdata("user_level") == "User") {
+      redirect('home');
+    }
+
     $this->load->library('form_validation');
     $this->load->model('user_model');
   }
